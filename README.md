@@ -54,3 +54,41 @@ ruby -v   # => ruby 3.3.0
 Rails のアプリを WSL2 上で立ち上げる準備完了。
 
 ↓からは、実際にRailsのアプリをWSL2上で立ち上げてみる練習。
+
+## 簡単なCRUDアプリ作成
+
+
+### Step 1. 事前チェック
+``` 
+ruby -v          # 3.3.x が出ていればOK
+gem -v
+``` 
+SQLiteを使うので、未インストールなら以下も
+
+```
+sudo apt update
+sudo apt install -y libsqlite3-dev
+```
+
+### 練習用アプリ作成
+```
+cd # 任意のディレクトリ
+rails new sample_app -d sqlite3
+cd Ruby_app
+```
+
+### DB 準備 & サーバ起動
+```
+bin/rails db:prepare
+bin/rails s -b 0.0.0.0
+```
+http://localhost:3000を開き、Rails のウェルカムページが出たら成功。
+
+### 実際に動くもの（当リポジトリ初回コミットの内容）
+```
+bin/rails g scaffold Post title:string body:text
+bin/rails db:migrate
+bin/rails s -b 0.0.0.0
+```
+
+http://localhost:3000/posts で一覧/新規/編集/削除の確認ができれば完成。
