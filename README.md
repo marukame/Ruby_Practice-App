@@ -70,21 +70,21 @@ sudo apt update
 sudo apt install -y libsqlite3-dev
 ```
 
-### 練習用アプリ作成
+### Step 2. 練習用アプリ作成
 ```
 cd # 任意のディレクトリ
 rails new sample_app -d sqlite3
 cd Ruby_app
 ```
 
-### DB 準備 & サーバ起動
+### Step 3. DB 準備 & サーバ起動
 ```
 bin/rails db:prepare
 bin/rails s -b 0.0.0.0
 ```
 http://localhost:3000を開き、Rails のウェルカムページが出たら成功。
 
-### 実際に動くもの（当リポジトリ初回コミットの内容）
+### Step 4. 実際に動くもの（当リポジトリ初回コミットの内容）
 ```
 bin/rails g scaffold Post title:string body:text
 bin/rails db:migrate
