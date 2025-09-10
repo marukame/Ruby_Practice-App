@@ -1,24 +1,56 @@
-# README
+# Ruby練習用の開発環境構築
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 環境構成
+Windows上にWSL2 (Ubuntu) を有効化し、そこに Ruby を構築。
+さらに Docker Desktop を導入し、WSL2 上でコンテナ環境も利用可能にする。
 
-Things you may want to cover:
+### 1. 手順
 
-* Ruby version
+### Step 1.  WSL2 を有効化
+Windows PowerShell（管理者）で実行
 
-* System dependencies
+確認：` wsl --install -d Ubuntu-22.04 `
 
-* Configuration
+再起動 → Ubuntu ユーザー作成
 
-* Database creation
+確認：` wsl -l -v   # Ubuntu-22.04 が Version 2 であること `
 
-* Database initialization
+### Step 2. Docker Desktop をインストール
+Windowsに Docker Desktop を導入
 
-* How to run the test suite
+設定 → Use the WSL 2 based engine をON
 
-* Services (job queues, cache servers, search engines, etc.)
+設定 → Resources → WSL Integration で Ubuntu-22.04 を有効化
 
-* Deployment instructions
+確認：` docker run hello-world `
 
-* ...
+### Step 3. Ubuntu(WSL2) 側で開発ツール導入
+
+```
+sudo apt update
+sudo apt install -y build-essential git curl \
+  libssl-dev libreadline-dev zlib1g-dev pkg-config \
+  libffi-dev libyaml-dev libgdbm-dev libdb-dev uuid-dev \
+  libsqlite3-dev
+```
+
+### Step 4. rbenv で Ruby をインストール
+```
+# rbenv 本体
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init - bash)"' >> ~/.bashrc
+exec $SHELL
+
+# ruby-build プラグイン
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+# Ruby インストール
+rbenv install 3.3.0
+rbenv global 3.3.0
+ruby -v   # => ruby 3.3.0
+```
+
+Rails のアプリを WSL2 上で立ち上げる準備完了。
+
+↓からは、実際にRailsのアプリをWSL2上で立ち上げてみる練習。
